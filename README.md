@@ -98,7 +98,7 @@ No other toolchains or libraries required. Pure Win32 C (no C++ runtime).
 Edit `key_secret.h` (`rnsmwr-sim/key_secret.h:14`):
 
 ```c
-#define CORRECT_KEY "Velocity@12345"
+#define CORRECT_KEY "XXXXXXXX"
 ```
 
 Keep it ASCII, no spaces. The plaintext is **only** used at build time to derive `keyblob.h`. The shipped `.exe` contains only the ML-KEM-1024 encrypted form — not extractable with `strings` or a hex editor.
