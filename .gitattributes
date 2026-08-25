@@ -1,0 +1,79 @@
+# =============================================================================
+# rnsmwr-sim -- Security Awareness Simulation -- .gitattributes
+# Language: C (Win32 API / MinGW-w64) + PowerShell + ML-KEM-1024 (PQClean)
+# Renamed from wannacry to rnsmwr-sim to avoid malware scanner false positives
+# =============================================================================
+
+# -----------------------------------------------------------------------------
+# Auto-detect text vs binary, normalize line endings to LF in repo
+# Windows checkouts get CRLF for text files (core.autocrlf handles it, but
+# text=auto ensures consistent behavior on all platforms)
+# -----------------------------------------------------------------------------
+* text=auto
+
+# -----------------------------------------------------------------------------
+# C source -- force LF in repo, diff as C, mark as C for linguist
+# -----------------------------------------------------------------------------
+*.c text eol=lf diff=c linguist-language=C
+*.h text eol=lf diff=c linguist-language=C
+
+# Explicitly mark vendored PQClean ML-KEM reference as C and vendored
+# (excluded from language stats, still diffable as C)
+mlkem/** linguist-vendored
+mlkem/*.c text eol=lf diff=c linguist-language=C
+mlkem/*.h text eol=lf diff=c linguist-language=C
+
+# -----------------------------------------------------------------------------
+# PowerShell build scripts
+# -----------------------------------------------------------------------------
+*.ps1 text eol=crlf diff=powershell linguist-language=PowerShell
+*.psm1 text eol=crlf diff=powershell linguist-language=PowerShell
+*.psd1 text eol=crlf diff=powershell linguist-language=PowerShell
+
+# -----------------------------------------------------------------------------
+# Documentation / config
+# -----------------------------------------------------------------------------
+*.md text eol=lf diff=markdown linguist-language=Markdown
+*.txt text eol=lf diff=text
+*.gitignore text eol=lf
+*.gitattributes text eol=lf
+*.ps1 text eol=crlf
+
+# -----------------------------------------------------------------------------
+# Binary assets -- do not diff, do not normalize line endings
+# These are embedded at compile time into *_png.h / sound_wav.h / gif_frames.h
+# -----------------------------------------------------------------------------
+*.png binary linguist-language=ignore
+*.wav binary linguist-language=ignore
+*.gif binary linguist-language=ignore
+*.ico binary
+*.bmp binary
+*.jpg binary
+*.jpeg binary
+
+# Compiled executables (if ever tracked, treat as binary)
+*.exe binary
+*.dll binary
+*.obj binary
+*.o binary
+*.a binary
+*.lib binary
+*.pdb binary
+
+# -----------------------------------------------------------------------------
+# Generated headers are C but auto-generated -- keep diff=c for review but
+# mark as generated so GitHub collapses them in PRs
+# -----------------------------------------------------------------------------
+keyblob.h text eol=lf diff=c linguist-generated=true
+wallpaper_png.h text eol=lf diff=c linguist-generated=true
+sound_wav.h text eol=lf diff=c linguist-generated=true
+gif_frames.h text eol=lf diff=c linguist-generated=true
+
+# -----------------------------------------------------------------------------
+# Merge strategy -- generated files should not cause conflicts; keep theirs
+# (uncomment if you use custom merge drivers)
+# -----------------------------------------------------------------------------
+# keyblob.h merge=binary
+# wallpaper_png.h merge=binary
+# sound_wav.h merge=binary
+# gif_frames.h merge=binary
